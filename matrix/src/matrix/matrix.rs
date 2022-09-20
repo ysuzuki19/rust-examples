@@ -5,9 +5,9 @@ use std::{
 
 #[derive(Debug, PartialEq, Clone)]
 pub struct Matrix<T> {
-    pub(crate) width: u8,
-    pub(crate) height: u8,
-    pub(crate) data: Vec<T>,
+    pub(super) width: u8,
+    pub(super) height: u8,
+    pub(super) data: Vec<T>,
 }
 
 impl<T> Matrix<T>
