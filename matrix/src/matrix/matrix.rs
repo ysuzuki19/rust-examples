@@ -95,7 +95,6 @@ where
             }
             println!();
         }
-        // println!("\r]");
         println!("-----------------");
     }
 }
