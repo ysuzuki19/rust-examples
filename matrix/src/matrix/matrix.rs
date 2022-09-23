@@ -29,14 +29,9 @@ where
         }
     }
 
-    #[inline]
-    fn row_pos(&self, x: u8) -> u64 {
-        x as u64 * self.width as u64
-    }
-
-    #[inline]
+    #[inline(always)]
     fn element_pos(&self, x: u8, y: u8) -> usize {
-        (self.row_pos(x) + y as u64) as usize
+        (x as u64 * self.width as u64 + y as u64) as usize
     }
 
     pub fn at(&self, x: u8, y: u8) -> &T {
