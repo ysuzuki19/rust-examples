@@ -1,5 +1,7 @@
 #[cfg(test)]
 mod tests {
+    use crate::matrix;
+
     mod new {
         use std::{
             fmt::{Debug, Display},
