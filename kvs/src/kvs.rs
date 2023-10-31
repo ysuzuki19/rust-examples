@@ -49,9 +49,7 @@ impl<'a> Kvs<'a> {
     }
 
     pub async fn start(&mut self) -> io::Result<()> {
-        let listener = TcpListener::bind(&self.addr)
-            .await
-            .expect(format!("failed to listen {}", self.addr).as_str());
+        let listener = TcpListener::bind(&self.addr).await?;
         loop {
             let (stream, addr) = listener.accept().await?;
             let kvs_stream = KvsStream::new(stream);

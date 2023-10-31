@@ -11,8 +11,10 @@ pub enum KvsError {
 
     #[error("key not found: {0:?}")]
     KeyNotFound(String),
+
     #[error("Invalid Method Name: {0:?}")]
     InvalidMethodName(String),
+
     #[error("must to have space: <method> <key> <...args>")]
     InvalidQueryFormat,
 

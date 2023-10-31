@@ -6,7 +6,7 @@ use crate::{
     types::{KvsResult, Store},
 };
 
-pub async fn set<'a>(store: Arc<RwLock<Store>>, args: SetArgs<'a>) -> KvsResult<String> {
+pub async fn set(store: Arc<RwLock<Store>>, args: SetArgs<'_>) -> KvsResult<String> {
     store.write().await.insert(args.key.into(), args.val.into());
     Ok("Succeed to insert".to_owned())
 }

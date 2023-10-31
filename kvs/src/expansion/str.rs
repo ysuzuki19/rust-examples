@@ -6,7 +6,7 @@ pub trait SsvArray {
 
 impl SsvArray for str {
     fn ssv_array<const N: usize>(&self) -> KvsResult<[&str; N]> {
-        let strs = self.split(' ').into_iter().collect::<Vec<&str>>();
+        let strs = self.split(' ').collect::<Vec<&str>>();
         match strs.try_into() {
             Ok(arr) => Ok(arr),
             Err(_) => Err(KvsError::InvalidPayloadSize(N)),

@@ -7,7 +7,7 @@ use crate::{
     types::{KvsResult, Store},
 };
 
-pub async fn get<'a>(store: Arc<RwLock<Store>>, args: GetArgs<'a>) -> KvsResult<String> {
+pub async fn get(store: Arc<RwLock<Store>>, args: GetArgs<'_>) -> KvsResult<String> {
     match store.read().await.get(args.key) {
         Some(val) => Ok(val.clone()),
         None => Err(KvsError::KeyNotFound(args.key.into())),
