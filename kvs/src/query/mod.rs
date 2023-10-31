@@ -21,7 +21,6 @@ impl<'a> Query<'a> {
                 Ok(Query::Get(args))
             }
             Method::Set => {
-                // let strs = split_to(s)?;
                 let args = SetArgs::new(s.ssv_array()?);
                 println!("{}", s);
                 Ok(Query::Set(args))
