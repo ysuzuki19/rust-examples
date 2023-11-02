@@ -52,9 +52,11 @@ impl<'a> Kvs<'a> {
         let listener = TcpListener::bind(&self.addr).await?;
         loop {
             let (stream, addr) = listener.accept().await?;
-            let kvs_stream = KvsStream::new(stream);
-            let store = self.store.clone();
-            tokio::spawn(async move { process(kvs_stream, store).await });
+            let kvs_stream = KvsStream(stream);
+            tokio::spawn({
+                let store = self.store.clone();
+                async move { process(kvs_stream, store).await }
+            });
             println!("socket connected from {}", addr);
         }
     }

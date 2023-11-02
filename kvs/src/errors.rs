@@ -6,6 +6,9 @@ pub enum KvsError {
     #[error("stream error {0:?}")]
     StreamError(#[from] io::Error),
 
+    #[error("invalid utf8 string")]
+    InvalidUtf8String(#[from] std::string::FromUtf8Error),
+
     #[error("stream disconnected")]
     StreamDisconnected,
 
