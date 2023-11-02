@@ -1,7 +1,16 @@
-use std::{io, sync::Arc};
+mod response;
+mod stream;
+
+use std::sync::Arc;
 use tokio::{net::TcpListener, sync::RwLock};
 
-use crate::{handlers, kvs_stream::KvsStream, query::Query, types::Store};
+use crate::{
+    handlers,
+    query::Query,
+    types::{KvsResult, Store},
+};
+
+use self::stream::KvsStream;
 
 async fn process(mut kvs_stream: KvsStream, store: Arc<RwLock<Store>>) {
     loop {
@@ -15,13 +24,10 @@ async fn process(mut kvs_stream: KvsStream, store: Arc<RwLock<Store>>) {
                     println!("{}", input);
                 }
                 let res = match Query::from_str(input.as_str()) {
-                    Ok(query) => {
-                        let store = store.clone();
-                        match query {
-                            Query::Get(args) => handlers::get(store, args).await,
-                            Query::Set(args) => handlers::set(store, args).await,
-                        }
-                    }
+                    Ok(query) => match query {
+                        Query::Get(args) => handlers::get(store.clone(), args).await,
+                        Query::Set(args) => handlers::set(store.clone(), args).await,
+                    },
                     Err(msg) => Err(msg),
                 };
                 kvs_stream.write_result(res).await;
@@ -48,7 +54,7 @@ impl<'a> Kvs<'a> {
         self
     }
 
-    pub async fn start(&mut self) -> io::Result<()> {
+    pub async fn start(&mut self) -> KvsResult<()> {
         let listener = TcpListener::bind(&self.addr).await?;
         loop {
             let (stream, addr) = listener.accept().await?;

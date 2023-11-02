@@ -1,32 +1,7 @@
-use tokio::{
-    io::{AsyncReadExt, AsyncWriteExt},
-    net::TcpStream,
-};
-
-use crate::{errors::KvsError, types::KvsResult};
-
-/// TcpStream Wrapper for Kvs
-pub struct KvsStream(pub(super) TcpStream);
-
-impl KvsStream {
-    pub async fn read(&mut self) -> KvsResult<String> {
-        let mut buf = Vec::with_capacity(4096);
-        match self.0.read_buf(&mut buf).await {
-            Err(e) => Err(KvsError::StreamError(e)),
-            Ok(0) => Err(KvsError::StreamDisconnected),
-            Ok(_) => Ok(String::from_utf8(buf)?.trim().into()),
-        }
-    }
-
-    /// Write result message to TcpStream
-    pub async fn write_result(&mut self, res: KvsResult<String>) {
-        let buf = KvsResponse::from(res).into_bytes();
-        let _ = self.0.write(&buf).await;
-    }
-}
+use crate::types::KvsResult;
 
 /// Helper struct for KvsResponse
-struct KvsResponse(String);
+pub(super) struct KvsResponse(String);
 
 impl From<KvsResult<String>> for KvsResponse {
     /// Kvs Response for TcpStream
@@ -41,14 +16,14 @@ impl From<KvsResult<String>> for KvsResponse {
 }
 
 impl KvsResponse {
-    fn into_bytes(self) -> Vec<u8> {
+    pub(super) fn into_bytes(self) -> Vec<u8> {
         self.0.into_bytes()
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::{errors::KvsError, kvs_stream::KvsResponse, types::KvsResult};
+    use crate::{errors::KvsError, kvs::response::KvsResponse, types::KvsResult};
 
     #[test]
     fn ok_message() {
