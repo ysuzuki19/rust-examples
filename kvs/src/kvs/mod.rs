@@ -34,12 +34,12 @@ async fn process(mut kvs_stream: KvsStream, store: Arc<RwLock<Store>>) -> KvsRes
     Ok(())
 }
 
-pub struct Kvs<'a> {
+pub struct KvsServer<'a> {
     store: Arc<RwLock<Store>>,
     addr: &'a str,
 }
 
-impl<'a> Kvs<'a> {
+impl<'a> KvsServer<'a> {
     pub fn new() -> Self {
         Self {
             store: Arc::new(RwLock::new(Store::new())),

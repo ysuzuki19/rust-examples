@@ -8,7 +8,7 @@ use crate::error::{KvsError, KvsResult};
 use super::response::KvsResponse;
 
 /// TcpStream Wrapper for Kvs
-pub struct KvsStream(pub(super) TcpStream);
+pub(super) struct KvsStream(pub(super) TcpStream);
 
 impl KvsStream {
     pub async fn read(&mut self) -> KvsResult<String> {
