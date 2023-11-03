@@ -21,7 +21,8 @@ impl KvsStream {
     }
 
     /// Write result message to TcpStream
-    pub async fn write_result(&mut self, res: KvsResult<String>) {
-        let _ = self.0.write(&KvsResponse::from(res).into_bytes()).await;
+    pub async fn write_result(&mut self, res: KvsResult<String>) -> KvsResult<()> {
+        let _ = self.0.write(&KvsResponse::from(res).into_bytes()).await?;
+        Ok(())
     }
 }

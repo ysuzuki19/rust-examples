@@ -12,7 +12,7 @@ use crate::{
 
 use self::stream::KvsStream;
 
-async fn process(mut kvs_stream: KvsStream, store: Arc<RwLock<Store>>) {
+async fn process(mut kvs_stream: KvsStream, store: Arc<RwLock<Store>>) -> KvsResult<()> {
     loop {
         match kvs_stream.read().await {
             Err(e) => {
@@ -30,10 +30,11 @@ async fn process(mut kvs_stream: KvsStream, store: Arc<RwLock<Store>>) {
                     },
                     Err(msg) => Err(msg),
                 };
-                kvs_stream.write_result(res).await;
+                kvs_stream.write_result(res).await?;
             }
         }
     }
+    Ok(())
 }
 
 pub struct Kvs<'a> {
