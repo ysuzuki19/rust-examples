@@ -1,29 +1,41 @@
 #[derive(Debug, PartialEq)]
 pub struct GetArgs<'a> {
-    pub key: &'a str,
+    key: &'a str,
 }
 
 #[derive(Debug, PartialEq)]
 pub struct SetArgs<'a> {
-    pub key: &'a str,
-    pub val: &'a str,
+    key: &'a str,
+    val: &'a str,
 }
 
 impl<'a> GetArgs<'a> {
-    pub const SIZE: usize = 1;
+    const SIZE: usize = 1;
 
     pub fn new(strs: [&'a str; GetArgs::SIZE]) -> Self {
         Self { key: strs[0] }
     }
+
+    pub fn key(&self) -> &str {
+        self.key
+    }
 }
 
 impl<'a> SetArgs<'a> {
-    pub const SIZE: usize = 2;
+    const SIZE: usize = 2;
 
     pub fn new(strs: [&'a str; SetArgs::SIZE]) -> Self {
         Self {
             key: strs[0],
             val: strs[1],
         }
+    }
+
+    pub fn key(&self) -> &str {
+        self.key
+    }
+
+    pub fn val(&self) -> &str {
+        self.val
     }
 }

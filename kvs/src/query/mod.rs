@@ -53,7 +53,7 @@ mod tests {
         let input = "GET t";
         let query = Query::from_str(input);
         assert!(query.is_ok());
-        assert_eq!(query.unwrap(), (Query::Get(GetArgs { key: "t" })));
+        assert_eq!(query.unwrap(), (Query::Get(GetArgs::new(["t"]))));
     }
 
     #[test]
@@ -61,9 +61,6 @@ mod tests {
         let query = "SET t 1";
         let parsed = Query::from_str(query);
         assert!(parsed.is_ok());
-        assert_eq!(
-            parsed.unwrap(),
-            (Query::Set(SetArgs { key: "t", val: "1" }))
-        );
+        assert_eq!(parsed.unwrap(), (Query::Set(SetArgs::new(["t", "1"]))));
     }
 }
