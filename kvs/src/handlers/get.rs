@@ -1,10 +1,11 @@
 use std::sync::Arc;
+
 use tokio::sync::RwLock;
 
 use crate::{
-    errors::KvsError,
-    query::args::GetArgs,
-    types::{KvsResult, Store},
+    error::{KvsError, KvsResult},
+    query::GetArgs,
+    types::Store,
 };
 
 pub async fn get(store: Arc<RwLock<Store>>, args: GetArgs<'_>) -> KvsResult<String> {

@@ -1,6 +1,6 @@
 use std::str::FromStr;
 
-use crate::errors::KvsError;
+use crate::error::KvsError;
 
 /// Method for Kvs
 #[derive(Debug, PartialEq)]

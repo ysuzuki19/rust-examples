@@ -1,16 +1,13 @@
-mod response;
-mod stream;
-
 use std::sync::Arc;
+
 use tokio::{net::TcpListener, sync::RwLock};
 
-use crate::{
-    handlers,
-    query::Query,
-    types::{KvsResult, Store},
-};
+use crate::{error::KvsResult, handlers, query::Query, types::Store};
 
 use self::stream::KvsStream;
+
+mod response;
+mod stream;
 
 async fn process(mut kvs_stream: KvsStream, store: Arc<RwLock<Store>>) -> KvsResult<()> {
     loop {

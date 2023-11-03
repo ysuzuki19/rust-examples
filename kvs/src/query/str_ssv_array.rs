@@ -1,4 +1,4 @@
-use crate::{errors::KvsError, types::KvsResult};
+use crate::error::{KvsError, KvsResult};
 
 pub trait SsvArray {
     fn ssv_array<const N: usize>(&self) -> KvsResult<[&str; N]>;
@@ -17,7 +17,7 @@ impl SsvArray for str {
 #[cfg(test)]
 mod tests {
     mod parser {
-        use crate::expansion::str::SsvArray;
+        use crate::query::str_ssv_array::SsvArray;
 
         #[test]
         fn payloads_1() {

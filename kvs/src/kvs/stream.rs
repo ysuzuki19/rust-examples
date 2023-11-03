@@ -3,7 +3,7 @@ use tokio::{
     net::TcpStream,
 };
 
-use crate::{errors::KvsError, types::KvsResult};
+use crate::error::{KvsError, KvsResult};
 
 use super::response::KvsResponse;
 

@@ -1,4 +1,4 @@
-use crate::types::KvsResult;
+use crate::error::KvsResult;
 
 /// Helper struct for KvsResponse
 pub(super) struct KvsResponse(String);
@@ -23,7 +23,10 @@ impl KvsResponse {
 
 #[cfg(test)]
 mod tests {
-    use crate::{errors::KvsError, kvs::response::KvsResponse, types::KvsResult};
+    use crate::{
+        error::{KvsError, KvsResult},
+        kvs::response::KvsResponse,
+    };
 
     #[test]
     fn ok_message() {

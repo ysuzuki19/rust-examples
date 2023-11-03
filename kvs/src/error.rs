@@ -1,6 +1,8 @@
 use std::io;
 use thiserror::Error;
 
+pub type KvsResult<T> = Result<T, KvsError>;
+
 #[derive(Error, Debug)]
 pub enum KvsError {
     #[error("stream error {0:?}")]

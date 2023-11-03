@@ -1,10 +1,12 @@
-pub mod args;
+mod args;
 mod method;
+mod str_ssv_array;
 
+pub use args::*;
 use std::str::FromStr;
 
-use self::{args::*, method::Method};
-use crate::{errors::KvsError, expansion::str::SsvArray, types::KvsResult};
+use self::{method::Method, str_ssv_array::SsvArray};
+use crate::error::{KvsError, KvsResult};
 
 #[derive(Debug, PartialEq)]
 pub enum Query<'a> {
