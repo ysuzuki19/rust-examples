@@ -2,9 +2,9 @@ mod args;
 mod method;
 mod str_ssv_array;
 
-pub use args::*;
 use std::str::FromStr;
 
+pub use self::args::*;
 use self::{method::Method, str_ssv_array::SsvArray};
 use crate::error::{KvsError, KvsResult};
 
