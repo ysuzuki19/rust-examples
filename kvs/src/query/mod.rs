@@ -14,8 +14,10 @@ pub enum Query<'a> {
     Set(SetArgs<'a>),
 }
 
-impl<'a> Query<'a> {
-    pub fn from_str(s: &'a str) -> KvsResult<Query<'a>> {
+impl<'a> TryFrom<&'a str> for Query<'a> {
+    type Error = KvsError;
+
+    fn try_from(s: &'a str) -> Result<Query<'a>, Self::Error> {
         let (m, s) = parse_method(s)?;
         match m {
             Method::Get => {
@@ -53,7 +55,7 @@ mod tests {
     #[test]
     fn get_query() {
         let input = "GET t";
-        let query = Query::from_str(input);
+        let query = Query::try_from(input);
         assert!(query.is_ok());
         assert_eq!(query.unwrap(), (Query::Get(GetArgs::new(["t"]))));
     }
@@ -61,7 +63,7 @@ mod tests {
     #[test]
     fn set_query() {
         let query = "SET t 1";
-        let parsed = Query::from_str(query);
+        let parsed = Query::try_from(query);
         assert!(parsed.is_ok());
         assert_eq!(parsed.unwrap(), (Query::Set(SetArgs::new(["t", "1"]))));
     }

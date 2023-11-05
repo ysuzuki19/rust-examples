@@ -20,7 +20,7 @@ async fn process(mut kvs_stream: KvsStream, store: Arc<RwLock<Store>>) -> KvsRes
                 if !input.is_empty() {
                     println!("{}", input);
                 }
-                let res = match Query::from_str(input.as_str()) {
+                let res = match Query::try_from(input.as_str()) {
                     Ok(query) => match query {
                         Query::Get(args) => handlers::get(store.clone(), args).await,
                         Query::Set(args) => handlers::set(store.clone(), args).await,
