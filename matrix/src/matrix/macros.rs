@@ -2,10 +2,7 @@
 macro_rules! matrix {
     [$($elements:expr), *] => {
         {
-            let mut vec_2d = vec![];
-            $(
-              vec_2d.push($elements.to_vec());
-            )*
+            let vec_2d = vec![$($elements.to_vec(),)*];
             $crate::matrix::Matrix::new(vec_2d)
         }
     };
