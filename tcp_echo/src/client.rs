@@ -9,7 +9,7 @@ async fn main() -> std::io::Result<()> {
     let mut stream = TcpStream::connect(addr).await?;
 
     let msg = "Hello Tokio Socket".to_string();
-    stream.write(msg.as_bytes()).await?;
+    let _ = stream.write(msg.as_bytes()).await?;
 
     let mut buf = Vec::with_capacity(4096);
     stream.read_buf(&mut buf).await?;

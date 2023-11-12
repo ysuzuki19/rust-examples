@@ -17,7 +17,7 @@ async fn main() -> std::io::Result<()> {
                 let msg = String::from_utf8(buf).expect("failed to convert str");
                 println!("{msg}");
 
-                socket.write(msg.as_bytes()).await?;
+                let _ = socket.write(msg.as_bytes()).await?;
             }
             Err(err) => {
                 println!("{err:?}");
