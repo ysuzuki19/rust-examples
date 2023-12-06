@@ -6,7 +6,13 @@ pub struct InOrderIter<'a> {
 }
 
 impl<'a> InOrderIter<'a> {
-    pub fn push_recursively(&mut self, node: &'a node::Node) {
+    pub fn new(root: &'a node::Node) -> Self {
+        let mut iter = Self::default();
+        iter.push_recursively(root);
+        iter
+    }
+
+    fn push_recursively(&mut self, node: &'a node::Node) {
         self.stack.push(node);
         if let node::Node::Branch(branch) = node {
             self.push_recursively(branch.left());

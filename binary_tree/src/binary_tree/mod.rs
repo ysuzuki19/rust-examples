@@ -34,8 +34,6 @@ impl BinaryTree {
 
 impl BinaryTree {
     pub fn iter(&self) -> InOrderIter {
-        let mut iter = InOrderIter::default();
-        iter.push_recursively(&self.root);
-        iter
+        InOrderIter::new(&self.root)
     }
 }
