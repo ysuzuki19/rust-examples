@@ -1,7 +1,9 @@
+use self::tree_element::{TreeElement, Value};
+
+mod branch;
 mod convert;
 mod node;
-
-pub type Value = i32;
+mod tree_element;
 
 #[derive(Default)]
 pub struct BinaryTree {
