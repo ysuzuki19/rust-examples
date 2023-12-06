@@ -1,11 +1,15 @@
-use self::tree_element::{TreeElement, Value};
+use self::{
+    iter::InOrderIter,
+    traits::{TreeElement, Value},
+};
 
 mod branch;
 mod convert;
+mod iter;
 mod node;
-mod tree_element;
+mod traits;
 
-#[derive(Default)]
+#[derive(Default, Clone)]
 pub struct BinaryTree {
     root: node::Node,
 }
@@ -25,5 +29,13 @@ impl BinaryTree {
 
     pub fn size(&self) -> usize {
         self.root.size()
+    }
+}
+
+impl BinaryTree {
+    pub fn iter(&self) -> InOrderIter {
+        let mut iter = InOrderIter::default();
+        iter.push_recursively(&self.root);
+        iter
     }
 }

@@ -27,6 +27,8 @@ fn main() {
     assert!(tree.contains(9));
     assert!(tree.contains(10));
     assert!(!tree.contains(3));
-    let r: Vec<_> = tree.into();
+    let r: Vec<_> = tree.clone().into();
     assert_eq!(v, r);
+
+    assert_eq!(v, tree.iter().collect::<Vec<_>>());
 }

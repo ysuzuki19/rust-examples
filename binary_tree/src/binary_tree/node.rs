@@ -1,8 +1,8 @@
-use super::{branch::Branch, tree_element::TreeElement};
+use super::{branch::Branch, traits::TreeElement};
 
 type Value = i32;
 
-#[derive(Default)]
+#[derive(Default, Clone)]
 pub enum Node {
     Branch(Box<Branch>),
     #[default]

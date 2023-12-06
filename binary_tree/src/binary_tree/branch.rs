@@ -1,5 +1,6 @@
-use super::{node::Node, tree_element::TreeElement, Value};
+use super::{node::Node, traits::TreeElement, Value};
 
+#[derive(Clone)]
 pub struct Branch {
     value: Value,
     size: usize,
