@@ -1,13 +1,13 @@
 use self::{
+    common::{TreeElement, Value},
     iter::InOrderIter,
-    traits::{TreeElement, Value},
 };
 
 mod branch;
+mod common;
 mod convert;
 mod iter;
 mod node;
-mod traits;
 
 #[derive(Default, Clone)]
 pub struct BinaryTree {

@@ -1,4 +1,4 @@
-use super::{node, traits::Value};
+use super::{common::Value, node};
 
 #[derive(Default)]
 pub struct InOrderIter<'a> {

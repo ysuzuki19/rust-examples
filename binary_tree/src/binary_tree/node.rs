@@ -1,4 +1,4 @@
-use super::{branch::Branch, traits::TreeElement};
+use super::{branch::Branch, common::TreeElement};
 
 type Value = i32;
 
