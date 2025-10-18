@@ -33,7 +33,7 @@ impl BinaryTree {
 }
 
 impl BinaryTree {
-    pub fn iter(&self) -> InOrderIter {
+    pub fn iter(&'_ self) -> InOrderIter<'_> {
         InOrderIter::new(&self.root)
     }
 }
