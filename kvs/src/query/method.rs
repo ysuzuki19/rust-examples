@@ -1,4 +1,4 @@
-use std::str::FromStr;
+use std::{fmt::Display, str::FromStr};
 
 use crate::error::KvsError;
 
@@ -21,11 +21,11 @@ impl FromStr for Method {
     }
 }
 
-impl ToString for Method {
-    fn to_string(&self) -> String {
+impl Display for Method {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            Self::Get => "GET".to_owned(),
-            Self::Set => "SET".to_owned(),
+            Self::Get => write!(f, "GET"),
+            Self::Set => write!(f, "SET"),
         }
     }
 }
